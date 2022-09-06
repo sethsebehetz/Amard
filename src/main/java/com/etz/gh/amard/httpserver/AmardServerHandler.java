@@ -352,6 +352,9 @@ public class AmardServerHandler implements HttpHandler {
                     filter = s[3];
                     getGCBSocketErrors(exchange, filter);
                     break;
+                case "alarmlogs":
+                    getAlarmLogs(exchange);
+                    break;
                 default:
                     logger.info(Thread.currentThread().getName() + " No processor set up for path " + function);
                     exchange.sendResponseHeaders(404, 0);
@@ -569,6 +572,16 @@ public class AmardServerHandler implements HttpHandler {
     private void getGCBSocketErrors(HttpExchange exchange, String filter) throws IOException {
         setHeaders(exchange);
         String response = ctrl.getGCBSocketErrors(filter, getQueryParam("start"), getQueryParam("end"));
+        try (OutputStream os = exchange.getResponseBody()) {
+            exchange.sendResponseHeaders(200, response.getBytes().length);
+            os.write(response.getBytes());
+            os.flush();
+        }
+    }
+    
+    private void getAlarmLogs(HttpExchange exchange) throws IOException {
+       setHeaders(exchange);
+        String response = ctrl.getAlarmLogs();
         try (OutputStream os = exchange.getResponseBody()) {
             exchange.sendResponseHeaders(200, response.getBytes().length);
             os.write(response.getBytes());

@@ -46,7 +46,7 @@ public class Starter {
         logger.info("COUNT DISTINCT MONITORS " + getTotalMonitors());
         logger.info("AMARD Initialisation done successfully");
         AmardServer.start();
-        if (NetworkInterfaces.searchIPAddress(Config.getProperty("DATA.CLEANER.SERVER"))) {
+        if (NetworkInterfaces.searchIPAddress(Config.getDBConfigValue("DATA.CLEANER.SERVER"))) {
             DataLogCleanerScheduler.startScheduler();
         }
     }

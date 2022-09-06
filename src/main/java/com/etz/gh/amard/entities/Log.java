@@ -45,6 +45,7 @@ public class Log implements Serializable {
     @Column(name = "created", insertable = false)
     private Date created;
     private String other_name;
+    private String alarm;
 
     public String getName() {
         return name;
@@ -223,6 +224,14 @@ public class Log implements Serializable {
     public void setScheduler_interval(String scheduler_interval) {
         this.scheduler_interval = scheduler_interval;
     }
+
+    public String getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
+    }    
     
     @Override
     public String toString() {

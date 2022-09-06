@@ -42,7 +42,7 @@ public class Config {
         FG_PIN = props.getProperty("FG_PIN");
     }
 
-    public static String getKey(String key) {
+    public static String getDBConfigValue(String key) {
         Configuration configuration = CONFIG_DATA.stream().filter(c -> c.getK().equals(key)).findFirst().orElse(null);
         String value = configuration.getV();
         logger.info(Thread.currentThread().getName() + " " + key + " => " + value);

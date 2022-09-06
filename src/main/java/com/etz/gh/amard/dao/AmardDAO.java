@@ -145,6 +145,7 @@ public class AmardDAO {
             sl.setHttp_code(http_code);
             sl.setMessage(message);
             sl.setOther_name(other_name);
+            sl.setAlarm(monitor.getAlarm());
             seiID = (Integer) session.save(sl);
             tx.commit();
         } catch (HibernateException e) {
@@ -165,15 +166,15 @@ public class AmardDAO {
         Session session = DBUtils.getMonitorSession();
         Query query = null;
         if (type.equals("ALL")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc", Log.class);
         } else if (type.equals("FAILING")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc", Log.class);
         } else if (type.equals("VASGATE")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = 'VASGATE' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = 'VASGATE' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc", Log.class);
         } else if (type.equals("GIP")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = 'GIP' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = 'GIP' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc", Log.class);
         } else {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc", Log.class);
             query.setParameter("TYPE", type);
         }
 
@@ -189,11 +190,11 @@ public class AmardDAO {
         Session session = DBUtils.getMonitorSession();
         Query query = null;
         if (type.equals("ALL")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
         } else if (type.equals("FAILING")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
         } else {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name)  AND name like '%BOA%' order by request_time desc", Log.class);
             query.setParameter("TYPE", type);
         }
 
@@ -209,11 +210,11 @@ public class AmardDAO {
         Session session = DBUtils.getMonitorSession();
         Query query = null;
         if (type.equals("ALL")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) AND name like '%GCB%' order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) AND name like '%GCB%' order by request_time desc", Log.class);
         } else if (type.equals("FAILING")) {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name)  AND name like '%GCB%'  order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name)  AND name like '%GCB%'  order by request_time desc", Log.class);
         } else {
-            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name)  AND name like '%GCB%' order by request_time desc", Log.class);
+            query = session.createNativeQuery("SELECT * FROM amard.log WHERE id IN (SELECT max(id) FROM amard.log where type = :TYPE AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name)  AND name like '%GCB%' order by request_time desc", Log.class);
             query.setParameter("TYPE", type);
         }
 
@@ -448,8 +449,8 @@ public class AmardDAO {
 
     public static List<Log> getApplogs() {
         Session session = DBUtils.getMonitorSession();
-        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) order by request_time desc";
-        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
+        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) order by request_time desc";
+        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         //String sql = "SELECT m.name,m.description,m.type,m.monitor_group,l.id,l.error,l.message,l.request_time,l.response_time,l.created FROM amard.log l inner join monitor.monitor m on l.monitor_id = m.id where l.error != '0' order by l.created desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         Query query = session.createNativeQuery(sql, Log.class);
         List<Log> list = query.getResultList();
@@ -459,8 +460,8 @@ public class AmardDAO {
 
     public static List<Log> getBOAApplogs() {
         Session session = DBUtils.getMonitorSession();
-        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) AND name like '%BOA%' order by request_time desc";
-        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
+        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) AND name like '%BOA%' order by request_time desc";
+        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         //String sql = "SELECT m.name,m.description,m.type,m.monitor_group,l.id,l.error,l.message,l.request_time,l.response_time,l.created FROM amard.log l inner join monitor.monitor m on l.monitor_id = m.id where l.error != '0' order by l.created desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         Query query = session.createNativeQuery(sql, Log.class);
         List<Log> list = query.getResultList();
@@ -470,8 +471,8 @@ public class AmardDAO {
 
     public static List<Log> getGCBApplogs() {
         Session session = DBUtils.getMonitorSession();
-        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 GROUP BY name) AND name like '%GCB%' order by request_time desc";
-        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 61 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
+        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 GROUP BY name) AND name like '%GCB%' order by request_time desc";
+        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         //String sql = "SELECT m.name,m.description,m.type,m.monitor_group,l.id,l.error,l.message,l.request_time,l.response_time,l.created FROM amard.log l inner join monitor.monitor m on l.monitor_id = m.id where l.error != '0' order by l.created desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
         Query query = session.createNativeQuery(sql, Log.class);
         List<Log> list = query.getResultList();
@@ -550,6 +551,17 @@ public class AmardDAO {
         System.out.println("query to run " + sql);
         Query query = session.createNativeQuery(sql, EcardQueryResult.class);
         List<EcardQueryResult> list = query.getResultList();
+        session.close();
+        return list;
+    }
+    
+    public static List<Log> getAlarmLogs() {
+        Session session = DBUtils.getMonitorSession();
+        String sql = "SELECT * FROM amard.log WHERE error != '0' and id IN (SELECT max(id) FROM amard.log where TIMESTAMPDIFF(MINUTE,created,NOW()) < 3 and alarm = '1' GROUP BY name) order by request_time desc";
+        //String sql = "SELECT * FROM amard.log where error != '0' AND TIMESTAMPDIFF(MINUTE,created,NOW()) < 31 order by request_time desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
+        //String sql = "SELECT m.name,m.description,m.type,m.monitor_group,l.id,l.error,l.message,l.request_time,l.response_time,l.created FROM amard.log l inner join monitor.monitor m on l.monitor_id = m.id where l.error != '0' order by l.created desc limit " + Config.getPropertyEager("NOTIFICATION_RECORDS_SIZE");
+        Query query = session.createNativeQuery(sql, Log.class);
+        List<Log> list = query.getResultList();
         session.close();
         return list;
     }

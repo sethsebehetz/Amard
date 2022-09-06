@@ -636,6 +636,12 @@ public class AmardController {
         String response = new JSONArray(list).toString();
         return response;
     }
+    
+     public String getAlarmLogs() {
+        List<Log> list = AmardDAO.getAlarmLogs();
+        String response = new JSONArray(list).toString();
+        return response;
+    }
 
     public static void main(String[] args) {
         //System.out.println(new AmardController().getMomoLiveGraphData("MTN", "C", 5));

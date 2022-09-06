@@ -52,6 +52,7 @@ public class NetworkInterfaces {
     }
 
     public static boolean searchIPAddress(String ipAddress) {
+        //System.out.println("IP ADDRESS RECEIVED "+ ipAddress);
         try {
             if(ipMatches.get(ipAddress) != null){
                 //logger.info(Thread.currentThread().getName() + " " + ipAddress + " match true from amard ipAddress cache registry");

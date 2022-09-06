@@ -26,16 +26,16 @@ public class AmardServer {
     }
 
     public static void start() {
-        String[] home_servers = Config.getKey("APP_HOME_SERVER").split("#");
+        String[] home_servers = Config.getDBConfigValue("APP_HOME_SERVER").split("#");
         for (String ip : home_servers) {
             if (NetworkInterfaces.searchIPAddress(ip)) {
                 try {
                     long start = System.currentTimeMillis();
                     logger.info(Thread.currentThread().getName() + " Starting Amard Server...");
-                    int port = Integer.parseInt(Config.getKey("PORT"));
+                    int port = Integer.parseInt(Config.getDBConfigValue("PORT"));
                     InetSocketAddress addr = new InetSocketAddress(port);
                     HttpServer server = HttpServer.create(addr, 0);
-                    server.createContext(Config.getKey("REQUEST_PATH"), new AmardServerHandler());
+                    server.createContext(Config.getDBConfigValue("REQUEST_PATH"), new AmardServerHandler());
                     server.setExecutor(Executors.newCachedThreadPool());
                     server.start();
                     long end = System.currentTimeMillis() - start;
