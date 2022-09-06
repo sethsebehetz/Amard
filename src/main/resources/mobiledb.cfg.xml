@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+<!--        <property name="hibernate.connection.url">jdbc:mysql://172.16.40.17:3306/mobiledb</property>
+        <property name="hibernate.connection.username">xportal</property>
+        <property name="hibernate.connection.password">kdsoiio3098@W</property>       -->
+        <property name="hibernate.connection.url">jdbc:mysql://10.0.1.230:3306/mobiledb?useSSL=false</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">w1nn1nG$$</property>  
+        <property name="show_sql">true</property> 
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">3</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>       
+        <mapping class="com.etz.gh.amard.entities.Graph"></mapping>
+        <mapping class="com.etz.gh.amard.entities.GraphQueryResult"></mapping>
+    </session-factory>
+</hibernate-configuration>
